@@ -3,10 +3,10 @@
   <strong>Name:</strong>
   <%= @project.name %>
 </p>
-<div>
-  <% @project.comments.each do |comment| %>
-    <div><%= comment.body %></div>
-  <% end %>
-</div>
+<%= render 'comments/form', comment: Comment.new %>
+<%= turbo_stream_from @project, :comments %>
+<%= content_tag :div, id: "#{dom_id(@project)}_comments" do %>
+  <%= render @project.comments.order(created_at: :desc) %>
+<% end %>
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>

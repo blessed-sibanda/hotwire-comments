@@ -1,0 +1,14 @@
+<%= turbo_frame_tag 'comment_form' do %>
+  <%= form_with model: comment, url: project_comments_path(@project) do |f| %>
+    <% if comment.errors.any? %>
+      <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+      <ul>
+        <% comment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <%= f.text_field :body %>
+    <%= f.submit %>
+  <% end %>
+<% end %>
